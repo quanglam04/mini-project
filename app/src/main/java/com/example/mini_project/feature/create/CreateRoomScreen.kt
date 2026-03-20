@@ -106,6 +106,7 @@ fun CreateRoomScreen(
                     // Validate
                     roomNumberError = when {
                         roomNumber.isBlank() -> "Vui lòng nhập số phòng"
+                        viewModel.isRoomNumberExists(roomNumber) -> "Phòng $roomNumber đã tồn tại"
                         else -> null
                     }
                     priceError = when {

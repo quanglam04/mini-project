@@ -6,6 +6,10 @@ import com.example.mini_project.model.Room
 
 class CreateRoomViewModel : ViewModel() {
 
+    fun isRoomNumberExists(roomNumber: String): Boolean {
+        return RoomRepository.getAllRooms().any { it.roomNumber == roomNumber }
+    }
+
     fun createRoom(
         roomNumber: String,
         price: Double,
