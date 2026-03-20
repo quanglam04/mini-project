@@ -1,21 +1,20 @@
 package com.example.mini_project.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation .NavType
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.mini_project.feature.create.CreateRoomScreen
 import com.example.mini_project.feature.list.RoomListScreen
+import com.example.mini_project.feature.splash.SplashScreen
 import com.example.mini_project.feature.update.UpdateRoomScreen
 
-/**
- * Navigation chính của app.
- * File này đã khai báo sẵn tất cả route.
- * Các thành viên KHÔNG cần sửa file này — chỉ implement Screen của mình.
- */
 object Routes {
+    const val SPLASH = "splash"
     const val ROOM_LIST = "room_list"
     const val CREATE_ROOM = "create_room"
     const val UPDATE_ROOM = "update_room/{roomId}"
@@ -29,16 +28,35 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.ROOM_LIST
+        startDestination = Routes.SPLASH
     ) {
+        // Splash screen
+        composable(Routes.SPLASH) {
+            SplashScreen(
+                onSplashFinished = {
+                    navController.navigate(Routes.ROOM_LIST) {
+                        popUpTo(Routes.SPLASH) { inclusive = true }
+                    }
+                }
+            )
+        }
+
         // Màn hình danh sách
-        composable(Routes.ROOM_LIST) {
+        composable(Routes.ROOM_LIST) { backStackEntry ->
+            val snackbarMsg by backStackEntry.savedStateHandle
+                .getStateFlow<String?>("snackbar_message", null)
+                .collectAsState()
+
             RoomListScreen(
                 onNavigateToCreate = {
                     navController.navigate(Routes.CREATE_ROOM)
                 },
                 onNavigateToUpdate = { roomId ->
                     navController.navigate(Routes.updateRoom(roomId))
+                },
+                snackbarMessage = snackbarMsg,
+                onSnackbarShown = {
+                    backStackEntry.savedStateHandle["snackbar_message"] = null
                 }
             )
         }
@@ -46,7 +64,12 @@ fun AppNavigation() {
         // Màn hình thêm phòng
         composable(Routes.CREATE_ROOM) {
             CreateRoomScreen(
-                onNavigateBack = {
+                onNavigateBack = { message ->
+                    if (message != null) {
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("snackbar_message", message)
+                    }
                     navController.popBackStack()
                 }
             )
@@ -60,7 +83,12 @@ fun AppNavigation() {
             val roomId = backStackEntry.arguments?.getString("roomId") ?: return@composable
             UpdateRoomScreen(
                 roomId = roomId,
-                onNavigateBack = {
+                onNavigateBack = { message ->
+                    if (message != null) {
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("snackbar_message", message)
+                    }
                     navController.popBackStack()
                 }
             )

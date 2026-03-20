@@ -47,7 +47,71 @@ object RoomRepository {
                     tenantName = "Trần Thị B",
                     tenantPhone = "0912345678",
                     description = "Phòng rộng, có bếp riêng"
-                )
+                ),Room(
+                    roomNumber = "105",
+                    price = 3000000.0,
+                    area = 20.0,
+                    isOccupied = true,
+                    tenantName = "Nguyễn Văn A",
+                    tenantPhone = "0901234567",
+                    description = "Phòng có máy lạnh, ban công"
+                ),Room(
+                    roomNumber = "106",
+                    price = 3000000.0,
+                    area = 20.0,
+                    isOccupied = true,
+                    tenantName = "Nguyễn Văn A",
+                    tenantPhone = "0901234567",
+                    description = "Phòng có máy lạnh, ban công"
+                ),Room(
+                    roomNumber = "107",
+                    price = 3000000.0,
+                    area = 20.0,
+                    isOccupied = true,
+                    tenantName = "Nguyễn Văn A",
+                    tenantPhone = "0901234567",
+                    description = "Phòng có máy lạnh, ban công"
+                ),Room(
+                    roomNumber = "108",
+                    price = 3000000.0,
+                    area = 20.0,
+                    isOccupied = true,
+                    tenantName = "Nguyễn Văn A",
+                    tenantPhone = "0901234567",
+                    description = "Phòng có máy lạnh, ban công"
+                ),Room(
+                    roomNumber = "109",
+                    price = 3000000.0,
+                    area = 20.0,
+                    isOccupied = true,
+                    tenantName = "Nguyễn Văn A",
+                    tenantPhone = "0901234567",
+                    description = "Phòng có máy lạnh, ban công"
+                ),Room(
+                    roomNumber = "110",
+                    price = 3000000.0,
+                    area = 20.0,
+                    isOccupied = true,
+                    tenantName = "Nguyễn Văn A",
+                    tenantPhone = "0901234567",
+                    description = "Phòng có máy lạnh, ban công"
+                ),Room(
+                    roomNumber = "111",
+                    price = 3000000.0,
+                    area = 20.0,
+                    isOccupied = true,
+                    tenantName = "Nguyễn Văn A",
+                    tenantPhone = "0901234567",
+                    description = "Phòng có máy lạnh, ban công"
+                ),Room(
+                    roomNumber = "112",
+                    price = 3000000.0,
+                    area = 20.0,
+                    isOccupied = true,
+                    tenantName = "Nguyễn Văn A",
+                    tenantPhone = "0901234567",
+                    description = "Phòng có máy lạnh, ban công"
+                ),
             )
         )
         emitUpdate()
