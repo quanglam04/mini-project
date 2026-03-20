@@ -4,18 +4,16 @@ import androidx.lifecycle.ViewModel
 import com.example.mini_project.data.RoomRepository
 import com.example.mini_project.model.Room
 
-/**
- * ViewModel cho màn hình cập nhật phòng.
- * TODO [Người 4]: Implement logic load phòng + cập nhật
- */
 class UpdateRoomViewModel : ViewModel() {
 
     fun getRoomById(id: String): Room? {
-        // TODO: Gọi RoomRepository.getRoomById(id)
-        return null
+        return RoomRepository.getRoomById(id)
     }
 
-    fun updateRoom(room: Room) {
-        // TODO: Gọi RoomRepository.updateRoom(room)
+    fun updateRoom(room: Room): Boolean {
+        if (room.roomNumber.isBlank() || room.price <= 0 || room.area <= 0) return false
+
+        RoomRepository.updateRoom(room)
+        return true
     }
 }

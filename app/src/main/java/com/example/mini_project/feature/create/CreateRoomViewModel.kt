@@ -1,20 +1,31 @@
 package com.example.mini_project.feature.create
 
 import androidx.lifecycle.ViewModel
+import com.example.mini_project.data.RoomRepository
+import com.example.mini_project.model.Room
 
-
-/**
- * ViewModel cho màn hình thêm phòng.
- * TODO [Người 3]: Implement logic thêm phòng mới
- */
 class CreateRoomViewModel : ViewModel() {
+
+    fun isRoomNumberExists(roomNumber: String): Boolean {
+        return RoomRepository.getAllRooms().any { it.roomNumber == roomNumber }
+    }
 
     fun createRoom(
         roomNumber: String,
         price: Double,
         area: Double,
         description: String
-    ) {
-        // TODO: Tạo Room mới và gọi RoomRepository.addRoom(...)
+    ): Boolean {
+        if (roomNumber.isBlank() || price <= 0 || area <= 0) return false
+
+        val room = Room(
+            roomNumber = roomNumber,
+            price = price,
+            area = area,
+            isOccupied = false,
+            description = description
+        )
+        RoomRepository.addRoom(room)
+        return true
     }
 }
